@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<!--nav-->
+<nav class=" navbar nav1" style="z-index: 2;" >
+  
+  <a class="navbar-brand" href="#" ><img src="assets/img/logo_bioflex-01.png" style="height: 40px;" alt=""></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="assets/img/logo_bioflex-01.png"  style="height: 40px;"alt=""></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <hr class="hr1">
+    <div class="offcanvas-body" >
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+       
+        <li class="nav-item">
+          <a class="nav-link"   style="cursor: pointer"><i class="fas fa-clipboard" style="color: rgb(0, 162, 255);"></i> Mostrar por mécanico</a>
+        </li>
+        
+
+
+        <div class="input-group input-group-sm mb-3" >
+          <input  #identificador  type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Ingresa tú número de nómina" name="nomina" id="txtNomina">
+          <button class="btn btn-outline-primary" type="submit" id="button-addon2" (click)="getInputValue(identificador.value)"  >Ir <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <hr>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer" href="#" ><img src="assets/img/logout.png"  style=" height: 25px;">Volver al inicio</a>
+        </li>
+      </ul>
+   </div>
+    </div>
+</nav>
+<!--nav-->
+ 
+<!-- <tr  *ngFor="let item of datatable"> -->
+
+  <nav class="nav2" style="--bs-breadcrumb-divider: '>'; " aria-label="breadcrumb" style="z-index:1; margin-top: 1.8cm;">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/Resumen_Solicitudes">Solicitudes</a></li> 
+      <li class="breadcrumb-item active" aria-current="page" ><i class="fas fa-angle-double-left" ></i>Mecanico-{{nominaimp}}<i class="fas fa-angle-double-right"></i></li>
+  
+    </ol>
+   
+  </nav>
+  <br> <br> <br><br>
+  <div class="top fexconte  flex-row mb-3 card" style="border: none;" >
+    <div  class="titulo p-2"></div>
+    
+  </div>
+
+<div class="tab-content" id="nav-tabContent">
+<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+<!--tarjetas-->
+<div class="page-wrapper" >
+<!-- ******Header****** --> 
+
+<section class="cards-section text-center"  *ngFor="let item of datatable">
+ 
+<div class="container">
+
+  
+  
+  <div class="card text-center border-dark text-bg-light">
+    <div class="card-header ">
+      <div *ngIf="item.nomina2 ===0 && item.nomina!=='Pendiente por asignar' then thenBlock10 else elseBlock10"></div>
+      <ng-template #thenBlock10>
+        <span class="badge btn-success" style="background-color: rgb(53, 153, 50);">M1/{{item.nombre}}</span>
+      
+      </ng-template>
+        
+      <ng-template #elseBlock10>
+        <span class="badge btn-success" style="background-color: rgb(53, 153, 50);">M1/{{item.nombre}}</span> /
+        <span class="badge btn-danger" style="background-color: rgb(219, 64, 64);">M2/{{item.nombre2}}</span>
+      </ng-template>
+      {{item.maquina}}/{{item.dispositivo}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{item.area}}</h5>
+      <h6 class="card-title">Solicitado por: {{item.nombreSolicitante}}</h6>
+      <p class="card-text">{{item.descripcionProblema}}</p>
+      
+      <!--diagnosticar-->
+      <div *ngIf="item.diagnostico!=='' || item.tipoFalla!==''; then thenBlock7 else thenBlock7N"></div>
+      <ng-template #thenBlock7>
+        <button type="button" class="btn btn-warning" (click)="onSetData(item);  openModal(template);">
+          Diagnosticar <span class="badge " style="background-color: none; color: green;"><i class="fas fa-check-circle"></i></span>
+        </button>&nbsp;&nbsp;
+      </ng-template>
+
+      <ng-template #thenBlock7N>
+        <button class="btn btn-warning" (click)="onSetData(item);  openModal(template);" >Diagnosticar</button>&nbsp;&nbsp;
+      </ng-template>
+    <!--diagnosticar-->
+
+    <!--tareas ejecutadas-->
+    <div *ngIf="item.tareasEjecutadas !=='' || item.generoParo !=='' ; then thenBlock8 else thenBlock8b"></div>
+    <ng-template #thenBlock8>
+      <button type="button" class="btn btn-warning" (click)="onSetData(item);  openModal2(template2);">
+        Tareas ejecutadas <span class="badge " style="background-color: none; color: green;"><i class="fas fa-check-circle"></i></span>
+      </button>&nbsp;&nbsp;
+    </ng-template>
+
+    <ng-template #thenBlock8b>
+      <button class="btn btn-warning" (click)="onSetData(item);  openModal2(template2);">Tareas ejecutadas</button>&nbsp;&nbsp;
+    </ng-template>
+  <!--tareas ejecutadas-->
+      
+  <!--Material utilizado-->
+  <div *ngIf="item.refaMateHerra!=='' || item.grasaUtilizada !=='' then thenBlock9 else thenBlock9b"></div>
+  <ng-template #thenBlock9>
+    <button type="button" class="btn btn-warning" (click)="onSetData(item);  openModal25(template25);">
+      Material utilizado <span class="badge " style="background-color: none; color: green;"><i class="fas fa-check-circle"></i></span>
+    </button>&nbsp;&nbsp;
+  </ng-template>
+
+  <ng-template #thenBlock9b>
+    <button class="btn btn-warning" (click)="onSetData(item);  openModal25(template25);">Material utilizado</button>&nbsp;&nbsp;
+  </ng-template>
+<!--Material utilizado-->
+
+ <!--Cierre-->
+ <div *ngIf="item.refaMateHerra!=='' || item.grasaUtilizada !=='' then thenBlock9 else thenBlock9b"></div>
+ <ng-template #thenBlock9>
+   <button type="button" class="btn btn-warning" (click)="onSetData(item);  openModal25(template25);">
+     Material utilizado <span class="badge " style="background-color: none; color: green;"><i class="fas fa-check-circle"></i></span>
+   </button>&nbsp;&nbsp;
+ </ng-template>
+
+ <ng-template #thenBlock9b>
+   <button class="btn btn-warning" (click)="onSetData(item);  openModal25(template25);">Material utilizado</button>&nbsp;&nbsp;
+ </ng-template>
+<!--Cierre-->
+
+      <!-- <button class="btn btn-warning" (click)="onSetData(item);  openModal2(template2);" >Tareas ejecutadas</button>&nbsp;&nbsp;
+      <button class="btn btn-warning" (click)="onSetData(item);  openModal25(template25);" >Material utilizado</button>&nbsp;&nbsp; -->
+      <button class="btn btn-success" (click)="onSetData(item);  openModal3(template3);">Estatus</button>
+        
+     
+    </div>
+    <div class="card-footer text-muted">
+      Número:  {{item.idSolicitud}} /
+      {{item.fechaSolicitud}}
+    </div>
+  </div>
+
+</div><!--//container-->
+<br>
+</section><!--//cards-section-->
+</div>
+</div>
+</div>
+
+
+  <!--modales-->
+  <!--modal para  salida de activo-->
+  <ng-template class="wrapper bg-white" #template>
+   
+    <div class="modal-header">
+      <div class="h6 text-muted text-center pt-2" ><i class="fa-solid fa-triangle-exclamation triangle"></i>Diagnoticar. <b id="mostrarId" name="mostrarId" style="color: red;">{{ serviceModel.idSolicitud }}</b></div>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <br>
+
+  <div class="container">
+<h6  class="left"></h6>
+<h6   class="right"></h6>
+</div>
+
+<form class="rounded mb-0 m-4 p-4 needs-validation novalidate" >
+            
+      <label for="basic-url" class="form-label"><b>Descripción del diagnóstico:</b></label>
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-pen-nib"></i></span>
+        <textarea type="text" class="form-control" placeholder="Diagnóstico (descripción)" name="descDiag" id="txtdesDiag" [(ngModel)]="serviceModel.diagnostico"></textarea>
+      </div>
+      <hr>
+    <br>
+
+      <form [formGroup]="form" >
+     <label for="basic-url" class="form-label"><b>Tipo de falla: </b></label>
+       
+
+        <div class="form-check" formArrayName="orders" *ngFor="let order of ordersFormArray.controls; let i = index">
+
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"[formControlName]="i" >{{ordersData[i].name}}
+          <label class="form-check-label" >
+         
+          </label>
+        </div>
+       
+      </form>
+  <br>
+      
+</form>
+
+    
+     
+    <!--inicio-->
+   
+   <!-- <div class="h2 text-center">Creativity</div>-->
+      
+     
+            
+   <div class="d-grid gap-2">
+    <!-- <button type="button" class="btn btn-success btn.lg" (click)="onSetData(); onAddSolicitud(solicitud)"><i class="fas fa-paper-plane"></i> Solicitar</button> -->
+    <button type="button" class="btnenvia btn btn-primary btn.lg" (click)="onSetData(serviceModel);   onUpdateSalida(serviceModel); saveSomeThing()"
+    >
+      
+      Enviar diagnóstico
+    </button>
+   
+  </div>
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->
+
+
+  <!--modales-->
+  <!--modal para  salida de activo-->
+  <ng-template class="wrapper bg-white" #template2>
+    <div class="modal-header">
+      <div class="h6 text-muted text-center pt-2" ><i class="fa-solid fa-triangle-exclamation triangle"></i>Tareas. <b  id="mostrarId" name="mostrarId" style="color: red;">{{ serviceModel.idSolicitud }}</b></div>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>  
+<form class="rounded mb-0 m-4 p-4 needs-validation novalidate "  >
+    <label for="basic-url" class="form-label"><b>Descripción de las tareas:</b></label>
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-pen-nib"></i></span>
+      <textarea type="text" class="form-control" placeholder="Tareas (descripción)" id="dc" name="dc" [(ngModel)]="serviceModel.tareasEjecutadas" required></textarea>
+    </div>
+    <hr>
+    <label for="basic-url" class="form-label"><b>¿Genero paro de maquina?</b></label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1" >
+        No
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Si
+      </label>
+    </div>
+    <hr>
+    <label for="basic-url" class="form-label"><b>Tiempos:</b></label><br>
+    <label for="basic-url" class="form-label">Tiempo de paro correctivo:</label>
+    <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-stopwatch"></i></span>
+        <input type="number" class="form-control" placeholder="Paro correctivo (minutos)" id="pc" name="pc" [(ngModel)]="serviceModel.paroCorrectivo" required>
+      </div>
+      <label for="basic-url" class="form-label">Tiempo de paro operativo:</label>
+    <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-stopwatch"></i></span>
+        <input type="number" class="form-control" placeholder="Paro operativo (minutos)" id="pp" name="pp" [(ngModel)]="serviceModel.paroOperativo"required>
+      </div>
+      <label for="basic-url" class="form-label">Tiempo de paro por refacción:</label>
+    <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-stopwatch"></i></span>
+        <input type="number" class="form-control" placeholder="Paro por refacción (minutos)"  id="pr"name="pr" [(ngModel)]="serviceModel.paroRefaccion"required>
+      </div>
+</form>
+
+    <!--inicio-->
+   <!-- <div class="h2 text-center">Creativity</div>-->    
+   <div class="d-grid gap-2">
+    <!-- <button type="button" class="btn btn-success btn.lg" (click)="onSetData(); onAddSolicitud(solicitud)"><i class="fas fa-paper-plane"></i> Solicitar</button> -->
+    <button
+        type="submit"
+        class="btnenvia btn btn-primary btn.lg"
+        (click)="onSetData(serviceModel); onUpdateSalida3(serviceModel); saveSomeThing()"
+        
+      >
+      <i class="fa-solid fa-list-check"></i>
+        Guardar 
+      </button>
+   
+  </div>
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->
+
+
+
+  <ng-template class="wrapper bg-white" #template3>
+    <div class="modal-header">
+      <div class="h6 text-muted text-center pt-2" ><i class="fa-solid fa-triangle-exclamation triangle"></i>Cierre:<b  id="mostrarId" name="mostrarId" style="color: red;">{{ serviceModel.idSolicitud }}</b></div>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <form class="rounded mb-0 m-4 p-4 needs-validation novalidate">
+  
+    <label for="basic-url" class="form-label"><b>¿Trabajo sanitizado?</b></label>
+   <!--check-->
+   <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Si
+
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+    <label class="form-check-label" for="flexRadioDefault2">
+      No
+    </label>
+  </div>
+<!---->
+
+
+    <!-- <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+        <label class="form-check-label" for="flexRadioDefault1">
+          No
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Si
+        </label>
+      </div> -->
+      
+  <hr>
+  <label for="basic-url" class="form-label"><b>Estatus:</b></label>
+  <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="servicio" id="first-select">
+    <option selected>Seleccione....</option>
+    <option for value="Falta de refacción(Trabajo Temporal)">Falta de refacción(Trabajo Temporal)</option>
+    <option value="Recoger herramientas y refacciones"> Recogiendo herramientas y refacciones</option>
+    <option value="Cancelado">Cancelado</option>
+    <option value="Terminado">Terminado</option>
+  </select>
+  <br>
+    
+  </form> 
+   <div class="d-grid gap-2">
+    <!-- <button type="button" class="btn btn-success btn.lg" (click)="onSetData(); onAddSolicitud(solicitud)"><i class="fas fa-paper-plane"></i> Solicitar</button> -->
+    <button type="button" class="btnenvia btn btn-primary btn.lg" (click)="onSetData(serviceModel); onUpdateRevision(serviceModel); saveSomeThing()"
+    >
+    
+      Enviar diagnóstico
+    </button>
+   
+  </div>
+  
+  
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->
+  
+</body>
+</html>
+
+
+<!--modal cierre-->
+
+
+
+
+
+
+<ng-template class="wrapper bg-white" #template25>
+  <div class="modal-header">
+    <div class="h6 text-muted text-center pt-2" ><i class="fa-solid fa-triangle-exclamation triangle"></i>Material utilizado <b  id="mostrarId" name="mostrarId" style="color: red;">{{ serviceModel.idSolicitud }}</b></div>
+    <button
+      type="button"
+      class="close pull-rigth"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>  
+<form class="rounded mb-0 m-4 p-4 needs-validation novalidate "  >
+  <label for="basic-url" class="form-label"><b>Herramienta utilizada:</b></label>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-pen-nib"></i></span>
+    <textarea type="text" class="form-control" placeholder="Describe la herramienta" id="dc" name="dc" [(ngModel)]="serviceModel.refaMateHerra" required></textarea>
+  </div>
+  
+  <hr>
+  <label for="basic-url" class="form-label"><b>Grasa utilizada:</b></label><br>
+  <form [formGroup]="formtools" >
+
+       <div class="form-check" formArrayName="tools" *ngFor="let tool of toolsFormArray.controls; let e = index">
+
+         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" [formControlName]="e" >{{toolsData[e].name1}}
+         <label class="form-check-label" >
+        
+         </label>
+       </div>
+      
+     </form>
+</form>
+
+  <!--inicio-->
+ <!-- <div class="h2 text-center">Creativity</div>-->    
+ <div class="d-grid gap-2">
+  <!-- <button type="button" class="btn btn-success btn.lg" (click)="onSetData(); onAddSolicitud(solicitud)"><i class="fas fa-paper-plane"></i> Solicitar</button> -->
+  <button
+      type="submit"
+      class="btnenvia btn btn-primary btn.lg"
+      (click)=" onSetData(serviceModel);   onUpdateSalida4(serviceModel); saveSomeThing()"
+      
+    >
+    <i class="fa-solid fa-floppy-disk"></i>
+      Guardar
+    </button>
+ 
+</div>
+  <!--fin-->
+</ng-template>
+<!--modal para  salida de activo-->
