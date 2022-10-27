@@ -9,26 +9,26 @@
 <body>
 <!--nav-->
 <nav class=" navbar nav1" style="z-index: 1;" >
-  
+
   <a class="navbar-brand" href="#" ><img src="assets/img/logo_bioflex-01.png" style="height: 40px;" alt=""></a>
   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  
+
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" >
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="assets/img/logo_bioflex-01.png"  style="height: 40px;"alt=""></h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    
+
     <hr class="hr1">
     <div class="offcanvas-body" >
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-       
+
         <li class="nav-item">
-          <a class="nav-link"   style="cursor: pointer"><i class="fas fa-clipboard" style="color: rgb(0, 162, 255);"></i> Mostrar por mécanico</a>
+          <a class="nav-link"   style="cursor: pointer"><i class="fas fa-clipboard" style="color: rgb(0, 162, 255);"></i> Mostrar Por Mécanico</a>
         </li>
-        
+
 
 
         <div class="input-group input-group-sm mb-3" >
@@ -37,7 +37,7 @@
         </div>
         <hr>
         <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer" href="#" ><img src="assets/img/logout.png"  style=" height: 25px;">Volver al inicio</a>
+          <a class="nav-link" style="cursor: pointer" href="#" ><img src="assets/img/logout.png"  style=" height: 25px;">Volver al Inicio</a>
         </li>
       </ul>
    </div>
@@ -48,22 +48,22 @@
 <nav class="nav2" style="--bs-breadcrumb-divider: '>'; " aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/Resumen_Solicitudes">Solicitudes</a></li> >
-    <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-angle-double-left"></i>Detalles/aceptar<i class="fas fa-angle-double-right"></i></li>
+    <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-angle-double-left"></i>Detalles/Aceptar<i class="fas fa-angle-double-right"></i></li>
 
   </ol>
-  
+
 </nav>
 
 <div class="top fexconte  flex-row mb-3 card" style="border: none;" >
     <div  class="titulo p-2"></div>
-    
+
   </div>
-  
+
   <div class="card text-center">
     <div class="card-body" *ngFor="let item of datatable">
-    
 
-      
+
+
       <p class="card-text">
         No.:
         <b style="color: red;">{{ item.idSolicitud }}</b>
@@ -77,7 +77,7 @@
         <b>{{ item.area }}</b>
       </p>
       <p class="card-text">
-        Maquina:
+        Máquina:
         <b>{{item.maquina }}</b>
       </p>
       <p class="card-text">
@@ -85,11 +85,11 @@
         <b>{{ item.dispositivo }}</b>
       </p>
       <p class="card-text">
-        descripcion del Problema
+        Descripción del Problema
         <b>{{ item.descripcionProblema }}</b>
       </p>
       <p class="card-text">
-        Fecha de la solicitud:
+        Fecha de la Solicitud:
         <b>{{ item.fechaSolicitud }}</b>
       </p>
 
@@ -101,7 +101,7 @@
         (click)="onSetData(item); openModal(template);"
       >
         <i class="fas fa-paper-plane"></i>
-        Aceptar esta solicitud 
+        Aceptar Esta Solicitud
       </button>
       </ng-template>
       <ng-template #elseBlock>
@@ -112,7 +112,7 @@
         class="btnenvia btn btn-danger btn.lg"
         (click)="onTerm()"
       >
-        
+
         Solicitud terminada
       </button>
       </ng-template>
@@ -124,16 +124,16 @@
         (click)="onSetData(item); openModal1(template1);"
       >
         <i class="fas fa-paper-plane"></i>
-        Reasignar solicitud
+        Reasignar Solicitud
       </button>
       </ng-template>
-       
+
 
       </ng-template>
 
-      
+
     </div>
-      
+
 <ng-template class="wrapper bg-white" #template>
 <div class="modal-header">
   <div class="h6 text-muted text-center pt-2"  *ngFor="let item of datatable"><i class="fa-solid fa-triangle-exclamation triangle"></i>Tomar la solicitud. <b style="color: red;">{{ item.idSolicitud }}</b></div>
@@ -147,21 +147,21 @@
 </div>
 <br>
 <form class="rounded mb-0 m-4 p-4 needs-validation novalidate" >
- 
-    <h6 ><i class="fas fa-info-circle"></i> Coloca tú número de nómina para continuar</h6>
+
+    <h6 ><i class="fas fa-info-circle"></i> Coloca Tú Número de Nómina Para Continuar</h6>
     <div class="input-group input-group-sm mb-3">
       <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-clipboard"></i> </span>
       <input type="text" class="form-control" placeholder="Coloque su nómina" name="txtNomina1" id="txtNomina1" [(ngModel)]="serviceModel.nomina">
-    
+
     </div>
-  
+
 
 </form>
-  <button class="btn btn-primary"  (click)="onUpdateSalida0(serviceModel); saveSomeThing() ">Confirmar</button> 
+  <button class="btn btn-primary"  (click)="onUpdateSalida0(serviceModel); saveSomeThing() ">Confirmar</button>
 <br>
 
 </ng-template>
-<!-- 
+<!--
 <ng-template class="wrapper bg-white" #templateRea>
   <div class="modal-header">
     <div class="h6 text-muted text-center pt-2"  *ngFor="let item of datatable"><i class="fa-solid fa-triangle-exclamation triangle"></i>Tomar la solicitud. <b style="color: red;">{{ item.idSolicitud }}</b></div>
@@ -181,9 +181,9 @@
     <input type="number" class="form-control" placeholder="Coloque su nómina" name="Nomina" id="txtNomina" [(ngModel)]="serviceModel.nomina">
   </div>
   </form>
-    <button class="btn btn-primary"  (click)="onUpdateSalida(serviceModel); saveSomeThing() ">Confirmar</button> 
+    <button class="btn btn-primary"  (click)="onUpdateSalida(serviceModel); saveSomeThing() ">Confirmar</button>
   <br>
-  
+
   </ng-template> -->
   <ng-template class="wrapper bg-white" #template1>
     <div class="modal-header">
@@ -198,20 +198,20 @@
     </div>
     <br>
     <form class="rounded mb-0 m-4 p-4 needs-validation novalidate" >
-     
-        <h6 ><i class="fas fa-info-circle"></i> Coloca tú número de nómina para reasignar</h6>
+
+        <h6 ><i class="fas fa-info-circle"></i> Coloca Tú Número de Nómina Para Reasignar</h6>
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm"><i class
-            
+
             ="fas fa-clipboard"></i> </span>
           <input type="number" class="form-control" placeholder="Coloque su nómina" name="Nomina1" id="txtNomina1" [(ngModel)]="serviceModel.nomina2">
         </div>
-      
-    
+
+
     </form>
-      <button class="btn btn-primary"  (click)="onUpdateSalida(serviceModel); saveSomeThing() ">Confirmar</button> 
+      <button class="btn btn-primary"  (click)="onUpdateSalida(serviceModel); saveSomeThing() ">Confirmar</button>
     <br>
-    
+
     </ng-template>
 </div>
 

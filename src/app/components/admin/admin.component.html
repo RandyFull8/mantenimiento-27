@@ -47,7 +47,7 @@
 
                 <li class=" active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                   style="margin-left: 0.5cm;" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i
-                    class="fas fa-border-all"></i> Filtro de solicitudes</li>
+                    class="fas fa-border-all"></i> Filtro de Solicitudes</li>
 
                 <li class="" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
                   style="margin-left: 0.5cm;" type="button" role="tab" aria-controls="nav-contact"
@@ -63,7 +63,7 @@
 
                 <li class="" id="nav-mecanico-tab" data-bs-toggle="tab" data-bs-target="#nav-mecanico"
                   style="margin-left: 0.5cm;" type="button" role="tab" aria-controls="nav-mecanico"
-                  aria-selected="false"><i class="fas fa-user-plus"></i> Agregar mecánico</li>
+                  aria-selected="false"><i class="fas fa-user-plus"></i> Agregar Mecánico</li>
               </div>
             </div>
           </div>
@@ -78,10 +78,10 @@
 
   </nav>
   <!--navegacion -->
-  
+
   <br><br><br>
 
-  <div> 
+  <div>
     <div class="tab-content" id="nav-tabContent">
 
       <!-- 1 Apartado del filtro de solicitudes -->
@@ -103,7 +103,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Fitrar por fechas
+                    Fitrar por Fechas
                   </a>
                   <ul class="dropdown-menu">
                     <li> <a class="dropdown-item">Al día:<input type="date"></a></li>
@@ -143,21 +143,21 @@
                 <th class="cabezaras">
                   <div class="search-name"><span>Área Solicitud</span><select class="btn_filter" style="width:20px;"
                       name="searchTextAS" [(ngModel)]="searchTextAS">
-                      <option value="" selected>todo</option>
+                      <option value="" selected>Todo</option>
                       <option *ngFor="let item of areas">{{item.nombre}}</option>
                     </select></div>
                 </th>
                 <th class="cabezaras">
                   <div class="search-name"><span>Máquina</span><select class="btn_filter" style="width:20px;"
                       name="searchTextMAQ" [(ngModel)]="searchTextMAQ">
-                      <option value="" selected>todo</option>
+                      <option value="" selected>Todo</option>
                       <option *ngFor="let item of maqunasAreas">{{item.nombre}}</option>
                     </select></div>
                 </th>
                 <th class="cabezaras">
                   <div class="search-name"><span>Dispositivos</span><select class="btn_filter" style="width:20px;"
                       name="searchTextDIS" [(ngModel)]="searchTextDIS">
-                      <option value="" selected>todo</option>
+                      <option value="" selected>Todo</option>
                       <option *ngFor="let item of datatable">{{item.dispositivo}}</option>
                     </select></div>
                 </th>
@@ -169,8 +169,8 @@
                 <th class="cabezaras">Diagnóstico</th>
                 <th class="cabezaras">Falla</th>
                 <th class="cabezaras">¿Género Paro?</th>
-                <th class="cabezaras">tiempo Paro Correctivo</th>
-                <th class="cabezaras">tiempo Paro Operativo</th>
+                <th class="cabezaras">Tiempo Paro Correctivo</th>
+                <th class="cabezaras">Tiempo Paro Operativo</th>
                 <th class="cabezaras">Paro Refacción</th>
                 <th class="cabezaras">Tiempo Total</th>
                 <th class="cabezaras">Grasas</th>
@@ -182,9 +182,9 @@
                   <div class="search-name">
                     <span>Estatus</span>
                     <select class="btn_filter" style="width:20px;" name="searchTextStat" [(ngModel)]="searchTextStat">
-                      <option value="" selected>todo</option>
+                      <option value="" selected>Todo</option>
                       <option>Falta de refacción(Trabajo Temporal)</option>
-                      <option> Recogiendo herramientas y refacciones</option>
+                      <option>Recogiendo herramientas y refacciones</option>
                       <option>Cancelado</option>
                       <option>Terminado</option>
                     </select>
@@ -247,7 +247,7 @@
                 aria-label="nombre" name="nombre" id="txtNombre" [(ngModel)]="serviceModelMecanico.nombre" required>
             </div>
             <div class="col-sm">
-              <button class="btn btn-success" type="submit">Agregar mecánico</button>
+              <button class="btn btn-success" type="submit">Agregar Mecánico</button>
             </div>
           </div>
         </form>
@@ -306,7 +306,7 @@
             <div class="col-sm">
               <select class="form-select" id="autoSizingSelect" name="areaMaquina" id="txtAreaMaquina"
                 [(ngModel)]="serviceModelMaquina.area" required>
-                <option selected value="">Seleccione un área...</option>
+                <option selected value="">Seleccione un Área...</option>
                 <option *ngFor="let item of datatable2" value="{{item.nombre}}">{{item.nombre}}</option>
               </select>
             </div>
@@ -317,7 +317,7 @@
             <div class="col-sm-3">
               <select class="form-select" id="autoSizingSelect" name="statusMaquina" id="txtstatusMaquina"
                 [(ngModel)]="serviceModelMaquina.statusMaquina" required>
-                <option selected value="">Seleccione un estatus...</option>
+                <option selected value="">Seleccione Un Estatus...</option>
                 <option selected value="Activa">Activa</option>
                 <option selected value="Inactiva">Inactiva</option>
                 <option selected value="Detenida">Detenida</option>
@@ -325,7 +325,7 @@
               </select>
             </div>
             <div class="col-sm">
-              <button class="btn btn-danger" type="submit">Agregar máquina</button>
+              <button class="btn btn-danger" type="submit">Agregar Máquina</button>
             </div>
           </div>
         </form>
@@ -363,14 +363,14 @@
             <div class="col-sm">
               <select class="form-select" id="txtAreaDispositivo" [(ngModel)]="searchTextAr" name="areaDispositivo"
                 [(ngModel)]="serviceModelDispositivo.area" required>
-                <option value="" selected>Seleccione el área...</option>
+                <option value="" selected>Seleccione el Área...</option>
                 <option *ngFor="let item of datatable5" value="{{item.nombre}}">{{item.nombre}}</option>
               </select>
             </div>
             <div class="col-sm">
               <select class="form-select" id="txtMaquinaDispositivo" name="maquinaDispositivo"
                 [(ngModel)]="searchTextMaq" [(ngModel)]="serviceModelDispositivo.maquina" required>
-                <option value="" selected>Seleccione la máquina...</option>
+                <option value="" selected>Seleccione la Máquina...</option>
                 <option *ngFor="let item of datatable3|filter:searchTextAr" value="{{item.nombre}}">{{item.nombre}}
                 </option>
               </select>
@@ -378,7 +378,7 @@
             <div class="col-sm">
               <select class="form-select" id="txtCodigoDispositivo" name="CodigoDispositivo"
                 [(ngModel)]="serviceModelDispositivo.codigo" required>
-                <option value="" selected>Seleccione el código...</option>
+                <option value="" selected>Seleccione el Código...</option>
                 <option *ngFor="let item of datatable3 | filter:searchTextMaq" value="{{item.codigo}}">{{item.codigo}}
                 </option>
               </select>

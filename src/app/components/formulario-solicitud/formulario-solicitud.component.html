@@ -17,13 +17,13 @@
   <div id="HoraActual" class="p-2"></div>
 </div>
 <div class="container io">
-  
+
     <div class="abs-center">
-     
+
 <div  class="io" style="max-width: auto;">
 
     <div class="row g-0">
-      
+
       <div class="">
         <div class="card-body">
           <form ngNativeValidate (ngSubmit)="onAddSolicitud(serviceModel)" class="row g-3">
@@ -36,27 +36,27 @@
 
               </div>
             </div>
-            
-          
-           
+
+
+
       <div class="col-md-6">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"><i class="fas fa-map-marker-alt"></i></span>
-         
-        <select  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" class="form-select" name="area" id="textarea" [(ngModel)]="searchText" [(ngModel)]="serviceModel.area" required 
+
+        <select  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" class="form-select" name="area" id="textarea" [(ngModel)]="searchText" [(ngModel)]="serviceModel.area" required
 >
-          <option selected value='' disabled>Seleccionar el área....</option>
+          <option selected value='' disabled>Seleccionar el Área....</option>
           <option *ngFor="let item of areas" value="{{item.nombre}}">{{item.nombre}}</option>
-                  
+
         </select>
       </div>
      </div>
-      
+
       <div  class="col-md-6">
         <div class="input-group input-group-sm mb-3">
-  
+
           <span class="input-group-text" id="inputGroup-sizing-sm"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"><i class="fas fa-cogs"></i></span>
-         
+
     <select  class="form-select" name="maquina" id="txtMaquina"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
     [(ngModel)]="searchTextDisp" [(ngModel)]="serviceModel.maquina" required (click)="GetMaquinaArea()">
       <option selected value='' disabled>Seleccionar la Máquina....</option>
@@ -64,13 +64,13 @@
           </select>
         </div>
       </div>
-           
+
 
             <div  class="col-md-6">
               <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"><i class="fas fa-microchip"></i></span>
                 <select  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" class="form-select " name="dispositivo" id="txtDispo" placeholder="Dispositivo"
-[(ngModel)]="serviceModel.dispositivo" required 
+[(ngModel)]="serviceModel.dispositivo" required
 >
 <option selected value='' disabled>Seleccionar la Máquina....</option>
       <option *ngFor="let item of dispositivos|filter:searchTextDisp" value="{{item.nombre}}">{{item.nombre}}</option>
@@ -86,12 +86,12 @@
                 required></textarea>
               </div>
             </div>
-            
-            
+
+
             <button style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;"
             type="submit"
             class="btnenvia btn btn-success btn.lg"
-            
+
           >
             <i class="fas fa-paper-plane"></i>
             Solicitar
@@ -103,16 +103,16 @@
   </div>
     </div>
   </div>
-   
 
-  
-  
-      
-    
-  
-  
-    
-  
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 
