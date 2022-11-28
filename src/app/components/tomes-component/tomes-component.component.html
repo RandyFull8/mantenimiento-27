@@ -45,7 +45,7 @@
             <button class="btn btn-outline-primary" type="submit" id="button-addon2" (click)="getInputValue(identificador.value)"  >Ir <i class="fas fa-chevron-right"></i></button>
           </div>
           <hr>
-          
+
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingThree">
@@ -61,7 +61,6 @@
               type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-border-all"></i>General</li>
 
 
-
               <li class="" id="nav-pendientes-tab" data-bs-toggle="tab" data-bs-target="#nav-pendientes" style="margin-left: 0.5cm;"
               type="button" role="tab" aria-controls="nav-dispositivo" aria-selected="false"><i class="fas fa-check"></i>Pendientes</li>
 
@@ -71,7 +70,11 @@
               <li class="" id="nav-terminadas-tab" data-bs-toggle="tab" data-bs-target="#nav-terminadas" style="margin-left: 0.5cm;"
               type="button" role="tab" aria-controls="nav-mecanico" aria-selected="false"><i class="fas fa-check-double"></i>Terminadas</li>
 
+              <a class="" routerLink="/vista-todas" routerLinkActive="active" style="margin-left: 0.5cm;"
+              type="button" ><i class="fas fa-check-double"></i>Ver reportes</a>
+
             </div>
+
           </div>
 
         </div>
@@ -103,19 +106,19 @@
         <select class="form-select" id="inputGroupSelect01" [(ngModel)]="searchText">
           <option value="" selected>Todas las Tareas</option>
           <option *ngFor="let item of maqunasAreas" value="{{item.nombre}}">{{item.nombre}}</option>
-  
+
         </select>
       </div>
-    
-          
+
+
 
           <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">Por fecha</span>
             <input type="date" [(ngModel)]="searchDate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
           </div>
-       
-       
-   
+
+
+
     </div></div>
  </div>
 
@@ -164,23 +167,23 @@
               <td>{{item.horaSolicitud}}</td>
               <td>{{item.nombre}}</td>
               <td>{{item.nombre2}}</td>
-              
+
               <div *ngIf="item.nombre !=='Pendiente por asignar'; then thenBlock else elseBlock"></div>
               <ng-template #thenBlock>
                 <td><button class="btn btn-secondary"  style="color: rgb(170, 168, 168);" (click)="onclickTomadas()">Aceptada</button>
                 </td>
-              
+
                </ng-template>
               <ng-template #elseBlock>
                 <td><a class="btn btn-warning" routerLink="/view/{{item.idSolicitud}}">Revisar/Aceptar</a></td>
-               
+
              </ng-template>
-              
+
             </tr>
           </tbody>
         </table>
       </div>
-     
+
 
       </div>
 

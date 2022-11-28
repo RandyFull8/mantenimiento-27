@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginSupervisorComponent } from './components/login-supervisor/login-supervisor.component';
 import { LoginSolicitudesComponent } from './components/login-solicitudes/login-solicitudes.component';
 import { HistorialMecanicosComponent } from './components/historial-mecanicos/historial-mecanicos.component';
+import { VistaTotalComponent } from './components/vista-total/vista-total.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { HistorialMecanicosComponent } from './components/historial-mecanicos/hi
     AscDescPipe,
     LoginSupervisorComponent,
     LoginSolicitudesComponent,
-    HistorialMecanicosComponent
+    HistorialMecanicosComponent,
+    VistaTotalComponent
   
   ],
   imports: [

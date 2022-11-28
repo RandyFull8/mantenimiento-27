@@ -17,6 +17,7 @@ import { SupervisorLogGuard } from './guards/supervisor-log.guard';
 import { SolicitdsLogGuard } from './guards/solicitds-log.guard';
 import { LoginSolicitudesComponent } from './components/login-solicitudes/login-solicitudes.component';
 import { HistorialMecanicosComponent } from './components/historial-mecanicos/historial-mecanicos.component';
+import { VistaTotalComponent } from './components/vista-total/vista-total.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,9 @@ const routes: Routes = [
   },
   {
     path:'Historial/:id',component:HistorialMecanicosComponent
+  }
+  ,{
+    path:'vista-todas', component:VistaTotalComponent
   }
 ];
 
