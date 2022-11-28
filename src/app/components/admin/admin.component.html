@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="esp">
 
 <head>
   <meta charset="UTF-8">
@@ -9,12 +9,20 @@
 </head>
 
 <body>
+  
+  <div class="overlay" *ngIf="!load">
+    <div class="spinner ">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
 
   <!--navegacion -->
   <nav class=" navbar nav1" style="z-index: 5;">
 
     <a class="navbar-brand" href="#"><img src="assets/img/logo_bioflex-01.png" style="height: 40px;" alt=""
-        (click)="OnClickExit()"></a>
+     ></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -68,7 +76,7 @@
             </div>
           </div>
           <li class="nav-item" (click)="OnClickExit()">
-            <a class="nav-link" style="cursor: pointer" href="#"><img src="assets/img/logout.png"
+            <a class="nav-link" style="cursor: pointer"><img src="assets/img/logout.png"
                 style=" height: 25px;">Volver al inicio</a>
           </li>
         </ul>
@@ -122,121 +130,372 @@
             </div>
           </div>
         </nav>
-        <br>
+        <br> <br><br><br>
 
-        <div class="table-responsive tab-pane fade show active">
-          <h6>Solicitudes</h6>
-          <table class="table table-condensed table-bordered table-hover table caption-top" id="season-tble"
-            align="center" border="1" style="width:auto; height:20px;">
-            <caption>Lista de Solicitudes</caption>
-            <thead>
-              <tr align="center" class="active">
-                <th class="id">
-                  <div class="search-name">
-                    <span>ID</span>
-
-                  </div>
-                </th>
-                <th class="cabezaras">Nombre Solicitante</th>
-                <th class="cabezaras">Fecha Solicitud</th>
-                <th class="cabezaras">Hora Solicitud</th>
-                <th class="cabezaras">
-                  <div class="search-name"><span>Área Solicitud</span><select class="btn_filter" style="width:20px;"
-                      name="searchTextAS" [(ngModel)]="searchTextAS">
-                      <option value="" selected>Todo</option>
-                      <option *ngFor="let item of areas">{{item.nombre}}</option>
-                    </select></div>
-                </th>
-                <th class="cabezaras">
-                  <div class="search-name"><span>Máquina</span><select class="btn_filter" style="width:20px;"
-                      name="searchTextMAQ" [(ngModel)]="searchTextMAQ">
-                      <option value="" selected>Todo</option>
-                      <option *ngFor="let item of maqunasAreas">{{item.nombre}}</option>
-                    </select></div>
-                </th>
-                <th class="cabezaras">
-                  <div class="search-name"><span>Dispositivos</span><select class="btn_filter" style="width:20px;"
-                      name="searchTextDIS" [(ngModel)]="searchTextDIS">
-                      <option value="" selected>Todo</option>
-                      <option *ngFor="let item of datatable">{{item.dispositivo}}</option>
-                    </select></div>
-                </th>
-                <th class="cabezaras">Problema</th>
-                <th class="cabezaras">Nomina Inicial</th>
-                <th class="cabezaras">Nombre Mecánico</th>
-                <th class="cabezaras">Fecha Inicio</th>
-                <th class="cabezaras">Hora Inicio</th>
-                <th class="cabezaras">Diagnóstico</th>
-                <th class="cabezaras">Falla</th>
-                <th class="cabezaras">¿Género Paro?</th>
-                <th class="cabezaras">Tiempo Paro Correctivo</th>
-                <th class="cabezaras">Tiempo Paro Operativo</th>
-                <th class="cabezaras">Paro Refacción</th>
-                <th class="cabezaras">Tiempo Total</th>
-                <th class="cabezaras">Grasas</th>
-                <th class="cabezaras">Material Usado</th>
-                <th class="cabezaras">Fecha Cierre</th>
-                <th class="cabezaras">Hora Cierre</th>
-                <th class="cabezaras">¿Trabajó Sanitizado?</th>
-                <th class="cabezaras">
-                  <div class="search-name">
-                    <span>Estatus</span>
-                    <select class="btn_filter" style="width:20px;" name="searchTextStat" [(ngModel)]="searchTextStat">
-                      <option value="" selected>Todo</option>
-                      <option>Falta de refacción(Trabajo Temporal)</option>
-                      <option>Recogiendo herramientas y refacciones</option>
-                      <option>Cancelado</option>
-                      <option>Terminado</option>
-                    </select>
-                  </div>
-                </th>
-                <th class="cabezaras">Firmado</th>
-                <th class="cabezaras">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="let item of datatable| filter:searchText|filter:searchTextMAQ|filter:searchTextAS|filter:searchTextStat|paginate:{itemsPerPage:5,currentPage: page}"
-                style="width: 100%;" align="center">
-                <th scope="row">{{item.idSolicitud}}</th>
-                <th scope="row">{{item.nombreSolicitante}}</th>
-                <th scope="row">{{item.fechaSolicitud}}</th>
-                <th scope="row">{{item.horaSolicitud}}</th>
-                <th scope="row">{{item.area}}</th>
-                <th scope="row">{{item.maquina}}</th>
-                <th scope="row">{{item.dispositivo}}</th>
-                <th scope="row">{{item.descripcionProblema}}</th>
-                <th scope="row">{{item.nomina}}</th>
-                <th scope="row">{{item.nombre}}</th>
-                <th scope="row">{{item.fechaInicio}}</th>
-                <th scope="row">{{item.horaInicio}}</th>
-                <th scope="row">{{item.diagnostico}}</th>
-                <th scope="row">{{item.tipoFalla}}</th>
-                <th scope="row">{{item.generoParo}}</th>
-                <th scope="row">{{item.paroCorrectivo}}</th>
-                <th scope="row">{{item.paroOperativo}}</th>
-                <th scope="row">{{item.paroRefaccion}}</th>
-                <th scope="row">{{item.tiempoTotal}}</th>
-                <th scope="row">{{item.grasaUtilizada}}</th>
-                <th scope="row">{{item.refaMateHerra}}</th>
-                <th scope="row">{{item.fechaFinal}}</th>
-                <th scope="row">{{item.horaSolicitud}}</th>
-                <th scope="row">{{item.trabajoSanitizado}}</th>
-                <th scope="row">{{item.estatusActividad}}</th>
-                <th scope="row">{{item.firmaSolicitante}}</th>
-              </tr>
-            </tbody>
-          </table>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">En proceso</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">(Trabajo Temporal)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Cerradas</button>
+          </li>
+        
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <div class="table-responsive tab-pane fade show active">
+              <h6>Solicitudes</h6>
+              <table class="table table-condensed table-bordered table-hover table caption-top" id="season-tble"
+                align="center" border="1" style="width:auto; height:20px;">
+                <caption>Lista de Solicitudes</caption>
+                <thead>
+                  <tr align="center" class="active">
+                    <th class="id">
+                      <div class="search-name">
+                        <span>ID</span>
+    
+                      </div>
+                    </th>
+                    <th class="cabezaras">Nombre Solicitante</th>
+                    <th class="cabezaras">Fecha Solicitud</th>
+                    <th class="cabezaras">Hora Solicitud</th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Área Solicitud</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextAS" [(ngModel)]="searchTextAS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of areas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Máquina</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextMAQ" [(ngModel)]="searchTextMAQ">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of maqunasAreas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Dispositivos</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextDIS" [(ngModel)]="searchTextDIS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of datatable">{{item.dispositivo}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">Problema</th>
+                    <th class="cabezaras">Fecha Inicio</th>
+                    <th class="cabezaras">Hora Inicio</th>
+                    <th class="cabezaras">Diagnóstico</th>
+                    <th class="cabezaras">Falla</th>
+                    <th class="cabezaras">¿Género Paro?</th>
+                    <th class="cabezaras">Tiempo Paro Correctivo</th>
+                    <th class="cabezaras">Tiempo Paro Operativo</th>
+                    <th class="cabezaras">Paro Refacción</th>
+                    <th class="cabezaras">Tiempo Total</th>
+                    <th class="cabezaras">Grasas</th>
+                    <th class="cabezaras">Material Usado</th>
+                    
+                    <th class="cabezaras">¿Trabajó Sanitizado?</th>
+                    <th class="cabezaras">
+                      <div class="search-name">
+                        <span>Estatus</span>
+                        <select class="btn_filter" style="width:20px;" name="searchTextStat" [(ngModel)]="searchTextStat">
+                          <option value="" selected>Todo</option>
+                          <option>Falta de refacción(Trabajo Temporal)</option>
+                          <option>Recogiendo herramientas y refacciones</option>
+                          <option>Cancelado</option>
+                          <option>Terminado</option>
+                        </select>
+                      </div>
+                    </th>
+                    <th class="cabezaras">Fecha Cierre</th>
+                    <th class="cabezaras">Hora Cierre</th>
+                    <th class="cabezaras">Nombre Mecánico</th>
+                    <th class="cabezaras">Nombre Mecánico 2</th>
+                    <th class="cabezaras">Firmado por..</th>
+                    <th class="cabezaras">Fecha Firma</th>
+                    <th class="cabezaras">Hora Firma</th>
+                    <th class="cabezaras">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let item of datatable| filter:searchText|filter:searchTextMAQ|filter:searchTextAS|filter:searchTextStat|paginate:{itemsPerPage:3,currentPage: page}"
+                    style="width: 100%;" align="center">
+                    <th scope="row">{{item.idSolicitud}}</th>
+                    <th scope="row">{{item.nombreSolicitante}}</th>
+                    <th scope="row">{{item.fechaSolicitud}}</th>
+                    <th scope="row">{{item.horaSolicitud}}</th>
+                    <th scope="row">{{item.area}}</th>
+                    <th scope="row">{{item.maquina}}</th>
+                    <th scope="row">{{item.dispositivo}}</th>
+                    <th scope="row">{{item.descripcionProblema}}</th>
+                    <th scope="row">{{item.fechaInicio}}</th>
+                    <th scope="row">{{item.horaInicio}}</th>
+                    <th scope="row">{{item.diagnostico}}</th>
+                    <th scope="row">{{item.tipoFalla}}</th>
+                    <th scope="row">{{item.generoParo}}</th>
+                    <th scope="row">{{item.paroCorrectivo}}</th>
+                    <th scope="row">{{item.paroOperativo}}</th>
+                    <th scope="row">{{item.paroRefaccion}}</th>
+                    <th scope="row">{{item.tiempoTotal}}</th>
+                    <th scope="row">{{item.grasaUtilizada}}</th>
+                    <th scope="row">{{item.refaMateHerra}}</th>
+                    <th scope="row">{{item.trabajoSanitizado}}</th>
+                    <th scope="row">{{item.estatusActividad}}</th>
+                    <th scope="row">{{item.fechaFinal}}</th>
+                    <th scope="row">{{item.horaFinal}}</th>
+                    <th scope="row">{{item.nombre}}</th>
+                    <th scope="row">{{item.nombre2}}</th>
+                    <th scope="row">{{item.nombre3}}</th>
+                    <th scope="row">{{item.fechaFirma}}</th>
+                    <th scope="row">{{item.horaFirma}}</th>
+                    <th scope="row"><button type="button" class="btn btn-primary btn-sm"   routerLink="/Historial/{{item.idSolicitud}}">Historial de mecánicos</button></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Siguiente">
+            </pagination-controls>
+          </div>
+          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="table-responsive tab-pane fade show active">
+              <h6>Solicitudes</h6>
+              <table class="table table-condensed table-bordered table-hover table caption-top" id="season-tble"
+                align="center" border="1" style="width:auto; height:20px;">
+                <caption>Lista de Solicitudes</caption>
+                <thead>
+                  <tr align="center" class="active">
+                    <th class="id">
+                      <div class="search-name">
+                        <span>ID</span>
+    
+                      </div>
+                    </th>
+                    <th class="cabezaras">Nombre Solicitante</th>
+                    <th class="cabezaras">Fecha Solicitud</th>
+                    <th class="cabezaras">Hora Solicitud</th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Área Solicitud</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextAS" [(ngModel)]="searchTextAS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of areas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Máquina</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextMAQ" [(ngModel)]="searchTextMAQ">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of maqunasAreas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Dispositivos</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextDIS" [(ngModel)]="searchTextDIS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of datatable">{{item.dispositivo}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">Problema</th>
+                    <th class="cabezaras">Fecha Inicio</th>
+                    <th class="cabezaras">Hora Inicio</th>
+                    <th class="cabezaras">Diagnóstico</th>
+                    <th class="cabezaras">Falla</th>
+                    <th class="cabezaras">¿Género Paro?</th>
+                    <th class="cabezaras">Tiempo Paro Correctivo</th>
+                    <th class="cabezaras">Tiempo Paro Operativo</th>
+                    <th class="cabezaras">Paro Refacción</th>
+                    <th class="cabezaras">Tiempo Total</th>
+                    <th class="cabezaras">Grasas</th>
+                    <th class="cabezaras">Material Usado</th>
+                    
+                    <th class="cabezaras">¿Trabajó Sanitizado?</th>
+                    <th class="cabezaras">
+                      <div class="search-name">
+                        <span>Estatus</span>
+                        <select class="btn_filter" style="width:20px;" name="searchTextStat" [(ngModel)]="searchTextStat">
+                          <option value="" selected>Todo</option>
+                          <option>Falta de refacción(Trabajo Temporal)</option>
+                          <option>Recogiendo herramientas y refacciones</option>
+                          <option>Cancelado</option>
+                          <option>Terminado</option>
+                        </select>
+                      </div>
+                    </th>
+                    <th class="cabezaras">Fecha Cierre</th>
+                    <th class="cabezaras">Hora Cierre</th>
+                    <th class="cabezaras">Nombre Mecánico</th>
+                    <th class="cabezaras">Nombre Mecánico 2</th>
+                    <th class="cabezaras">Firmado por..</th>
+                    <th class="cabezaras">Fecha Firma</th>
+                    <th class="cabezaras">Hora Firma</th>
+                    <th class="cabezaras">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let item of datatableTT| filter:searchText|filter:searchTextMAQ|filter:searchTextAS|filter:searchTextStat|paginate:{itemsPerPage:3,currentPage: page}"
+                    style="width: 100%;" align="center">
+                    <th scope="row">{{item.idSolicitud}}</th>
+                    <th scope="row">{{item.nombreSolicitante}}</th>
+                    <th scope="row">{{item.fechaSolicitud}}</th>
+                    <th scope="row">{{item.horaSolicitud}}</th>
+                    <th scope="row">{{item.area}}</th>
+                    <th scope="row">{{item.maquina}}</th>
+                    <th scope="row">{{item.dispositivo}}</th>
+                    <th scope="row">{{item.descripcionProblema}}</th>
+                    <th scope="row">{{item.fechaInicio}}</th>
+                    <th scope="row">{{item.horaInicio}}</th>
+                    <th scope="row">{{item.diagnostico}}</th>
+                    <th scope="row">{{item.tipoFalla}}</th>
+                    <th scope="row">{{item.generoParo}}</th>
+                    <th scope="row">{{item.paroCorrectivo}}</th>
+                    <th scope="row">{{item.paroOperativo}}</th>
+                    <th scope="row">{{item.paroRefaccion}}</th>
+                    <th scope="row">{{item.tiempoTotal}}</th>
+                    <th scope="row">{{item.grasaUtilizada}}</th>
+                    <th scope="row">{{item.refaMateHerra}}</th>
+                    <th scope="row">{{item.trabajoSanitizado}}</th>
+                    <th scope="row">{{item.estatusActividad}}</th>
+                    <th scope="row">{{item.fechaFinal}}</th>
+                    <th scope="row">{{item.horaFinal}}</th>
+                    <th scope="row">{{item.nombre}}</th>
+                    <th scope="row">{{item.nombre2}}</th>
+                    <th scope="row">{{item.nombre3}}</th>
+                    <th scope="row">{{item.fechaFirma}}</th>
+                    <th scope="row">{{item.horaFirma}}</th>
+                    <th scope="row"><button type="button" class="btn btn-primary btn-sm"   routerLink="/Historial/{{item.idSolicitud}}">Historial de mecánicos</button></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Siguiente">
+            </pagination-controls>
+          </div>
+          <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+            <div class="table-responsive tab-pane fade show active">
+              <h6>Solicitudes</h6>
+              <table class="table table-condensed table-bordered table-hover table caption-top" id="season-tble"
+                align="center" border="1" style="width:auto; height:20px;">
+                <caption>Lista de Solicitudes</caption>
+                <thead>
+                  <tr align="center" class="active">
+                    <th class="id">
+                      <div class="search-name">
+                        <span>ID</span>
+    
+                      </div>
+                    </th>
+                    <th class="cabezaras">Nombre Solicitante</th>
+                    <th class="cabezaras">Fecha Solicitud</th>
+                    <th class="cabezaras">Hora Solicitud</th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Área Solicitud</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextAS" [(ngModel)]="searchTextAS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of areas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Máquina</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextMAQ" [(ngModel)]="searchTextMAQ">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of maqunasAreas">{{item.nombre}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">
+                      <div class="search-name"><span>Dispositivos</span><select class="btn_filter" style="width:20px;"
+                          name="searchTextDIS" [(ngModel)]="searchTextDIS">
+                          <option value="" selected>Todo</option>
+                          <option *ngFor="let item of datatable">{{item.dispositivo}}</option>
+                        </select></div>
+                    </th>
+                    <th class="cabezaras">Problema</th>
+                    <th class="cabezaras">Fecha Inicio</th>
+                    <th class="cabezaras">Hora Inicio</th>
+                    <th class="cabezaras">Diagnóstico</th>
+                    <th class="cabezaras">Falla</th>
+                    <th class="cabezaras">¿Género Paro?</th>
+                    <th class="cabezaras">Tiempo Paro Correctivo</th>
+                    <th class="cabezaras">Tiempo Paro Operativo</th>
+                    <th class="cabezaras">Paro Refacción</th>
+                    <th class="cabezaras">Tiempo Total</th>
+                    <th class="cabezaras">Grasas</th>
+                    <th class="cabezaras">Material Usado</th>
+                    
+                    <th class="cabezaras">¿Trabajó Sanitizado?</th>
+                    <th class="cabezaras">
+                      <div class="search-name">
+                        <span>Estatus</span>
+                        <select class="btn_filter" style="width:20px;" name="searchTextStat" [(ngModel)]="searchTextStat">
+                          <option value="" selected>Todo</option>
+                          <option>Falta de refacción(Trabajo Temporal)</option>
+                          <option>Recogiendo herramientas y refacciones</option>
+                          <option>Cancelado</option>
+                          <option>Terminado</option>
+                        </select>
+                      </div>
+                    </th>
+                    <th class="cabezaras">Fecha Cierre</th>
+                    <th class="cabezaras">Hora Cierre</th>
+                    <th class="cabezaras">Nombre Mecánico</th>
+                    <th class="cabezaras">Nombre Mecánico 2</th>
+                    <th class="cabezaras">Firmado por..</th>
+                    <th class="cabezaras">Fecha Firma</th>
+                    <th class="cabezaras">Hora Firma</th>
+                    <th class="cabezaras">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let item of datatableerradas| filter:searchText|filter:searchTextMAQ|filter:searchTextAS|filter:searchTextStat|paginate:{itemsPerPage:3,currentPage: page}"
+                    style="width: 100%;" align="center">
+                    <th scope="row">{{item.idSolicitud}}</th>
+                    <th scope="row">{{item.nombreSolicitante}}</th>
+                    <th scope="row">{{item.fechaSolicitud}}</th>
+                    <th scope="row">{{item.horaSolicitud}}</th>
+                    <th scope="row">{{item.area}}</th>
+                    <th scope="row">{{item.maquina}}</th>
+                    <th scope="row">{{item.dispositivo}}</th>
+                    <th scope="row">{{item.descripcionProblema}}</th>
+                    <th scope="row">{{item.fechaInicio}}</th>
+                    <th scope="row">{{item.horaInicio}}</th>
+                    <th scope="row">{{item.diagnostico}}</th>
+                    <th scope="row">{{item.tipoFalla}}</th>
+                    <th scope="row">{{item.generoParo}}</th>
+                    <th scope="row">{{item.paroCorrectivo}}</th>
+                    <th scope="row">{{item.paroOperativo}}</th>
+                    <th scope="row">{{item.paroRefaccion}}</th>
+                    <th scope="row">{{item.tiempoTotal}}</th>
+                    <th scope="row">{{item.grasaUtilizada}}</th>
+                    <th scope="row">{{item.refaMateHerra}}</th>
+                    <th scope="row">{{item.trabajoSanitizado}}</th>
+                    <th scope="row">{{item.estatusActividad}}</th>
+                    <th scope="row">{{item.fechaFinal}}</th>
+                    <th scope="row">{{item.horaFinal}}</th>
+                    <th scope="row">{{item.nombre}}</th>
+                    <th scope="row">{{item.nombre2}}</th>
+                    <th scope="row">{{item.nombre3}}</th>
+                    <th scope="row">{{item.fechaFirma}}</th>
+                    <th scope="row">{{item.horaFirma}}</th>
+                    <th scope="row"><button type="button" class="btn btn-primary btn-sm"   routerLink="/Historial/{{item.idSolicitud}}">Historial de mecánicos</button></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Siguiente">
+            </pagination-controls>
+          </div>
         </div>
-        <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Siguiente">
-        </pagination-controls>
+       
       </div>
       <!-- 1 Apartado del filtro de solicitudes -->
 
       <!-- 2 Apartado de agregar y ver mecanico-->
       <div class="tab-pane fade" id="nav-mecanico" role="tabpanel" aria-labelledby="nav-mecanico-tab">
         <form ngNativeValidate (submit)="onAddSolicitudMecanico(serviceModelMecanico)" class="row g-3">
-          <h6>Mecánico</h6>
+          <h6>Mecánicos</h6>
           <div class="row g-3">
             <div class="col-sm-3">
               <input type="number" class="form-control" placeholder="Número de nómina" aria-label="nomina" name="nomina"
@@ -257,12 +516,28 @@
             <tr>
               <th scope="col">#Nómina</th>
               <th scope="col">Nombre</th>
+              <th scope="col" class="text-center" style="background-color: rgb(253, 251, 251);">
+                <i class="fas fa-cogs" style="color: blue;"></i></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of datatable4">
               <th scope="row">{{item.nomina}}</th>
               <td>{{item.nombre}}</td>
+              <td class="text-center"  style="background-color: rgb(253, 251, 251);">
+                <div *ngIf="item.nomina==='0'; then verdad else falso"></div>
+                <ng-template #verdad>
+                  <button type="button" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" disabled>
+                    <i class="fas fa-trash"></i>
+                   </button>
+                </ng-template>
+                <ng-template #falso>
+                  <button type="button" class="btn btn-danger" (click)="deleteMecanicos(item.idMecanico)" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    <i class="fas fa-trash"></i>
+                   </button>
+                </ng-template>
+
+              </td>
             </tr>
           </tbody>
         </table>
@@ -285,9 +560,21 @@
         </form>
         <table class="table caption-top">
           <caption>Listado de Áreas</caption>
+          <thead>
+            <tr>
+              <th  scope="col">Nombre del área</th>
+              <th scope="col" class="text-center" style="background-color: rgb(253, 251, 251);">
+                <i class="fas fa-cogs" style="color: blue;"></i></th>
+            </tr>
+          </thead>
           <tbody>
             <tr *ngFor="let item of datatable2">
-              <td>{{item.nombre}}</td>
+              <td  scope="row">{{item.nombre}}</td>
+              <td class="text-center" style="background-color: rgb(253, 251, 251);">
+                <button type="button" (click)="deleteAreas(item.idArea)" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <i class="fas fa-trash"></i>
+                 </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -297,16 +584,16 @@
       <!-- 4 Apartado de agregar y ver maquina-->
       <div class="tab-pane fade" id="nav-machine" role="tabpanel" aria-labelledby="nav-machine-tab">
         <form ngNativeValidate (submit)="onAddSolicitudMaquina(serviceModelMaquina)">
-          <h6>Máquina</h6>
+          <h6>Máquinas </h6>
           <div class="row g-3">
             <div class="col-sm-3">
               <input type="text" class="form-control" placeholder="Nombre de la máquina" aria-label="nombre"
-                name="nombreMaquina" id="txtNombreMaquina" [(ngModel)]="serviceModelMaquina.nombre" required>
+                name="nombreMaquina" id="txtNombreMaquina" required>
             </div>
             <div class="col-sm">
               <select class="form-select" id="autoSizingSelect" name="areaMaquina" id="txtAreaMaquina"
                 [(ngModel)]="serviceModelMaquina.area" required>
-                <option selected value="">Seleccione un Área...</option>
+                <option selected value="" disabled>Seleccione un Área...</option>
                 <option *ngFor="let item of datatable2" value="{{item.nombre}}">{{item.nombre}}</option>
               </select>
             </div>
@@ -317,34 +604,47 @@
             <div class="col-sm-3">
               <select class="form-select" id="autoSizingSelect" name="statusMaquina" id="txtstatusMaquina"
                 [(ngModel)]="serviceModelMaquina.statusMaquina" required>
-                <option selected value="">Seleccione Un Estatus...</option>
-                <option selected value="Activa">Activa</option>
-                <option selected value="Inactiva">Inactiva</option>
-                <option selected value="Detenida">Detenida</option>
-                <option selected value="En reparación">En reparación</option>
+                <option selected value=""disabled>Seleccione Un Estatus...</option>
+                <option selected value="Activa" style="background-color: rgb(164, 245, 164);">Activa</option>
+                <option selected value="Inactiva" style="background-color: rgb(245, 164, 164);">Inactiva</option>
+                <option selected value="Detenida" style="background-color: rgb(245, 210, 164);">Detenida</option>
+                <option selected value="En reparación" style="background-color: rgb(245, 237, 164);">En reparación</option>
               </select>
             </div>
             <div class="col-sm">
               <button class="btn btn-danger" type="submit">Agregar Máquina</button>
             </div>
           </div>
+          <hr>
         </form>
         <table class="table caption-top">
           <caption>Listado de Máquinas</caption>
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
+              <th scope="col">Nombre/Código</th>
               <th scope="col">Área</th>
-              <th scope="col">Código</th>
               <th scope="col">Estatus</th>
+              <th scope="col" class="text-center" style="background-color: rgb(253, 251, 251);">
+                <i class="fas fa-cogs" style="color: blue;"></i></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of datatable3">
-              <td>{{item.nombre}}</td>
+              <td scope="row">{{item.nombre}}</td>
               <td>{{item.area}}</td>
-              <td>{{item.codigo}}</td>
               <td>{{item.statusMaquina}}</td>
+              <td class="text-center"  style="background-color: rgb(253, 251, 251);">
+                <button type="button" class="btn btn-danger" (click)="deleteMaquinas(item.idMaquina)" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <i class="fas fa-trash"></i>
+                 </button>
+                 <button  type="button" class="btn btn-warning" (click)="CambioStatus(template); onSetData(item)"  data-bs-title="This top tooltip is themed via CSS variables." style="margin-left: 5px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <img src="assets/img/changeStt.png"
+                style=" height: 20px; ">
+                 </button>
+
+
+
+              </td>
             </tr>
           </tbody>
         </table>
@@ -375,14 +675,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-sm">
-              <select class="form-select" id="txtCodigoDispositivo" name="CodigoDispositivo"
-                [(ngModel)]="serviceModelDispositivo.codigo" required>
-                <option value="" selected>Seleccione el Código...</option>
-                <option *ngFor="let item of datatable3 | filter:searchTextMaq" value="{{item.codigo}}">{{item.codigo}}
-                </option>
-              </select>
-            </div>
+
             <div class="col-sm">
               <button class="btn btn-danger" type="submit">Agregar</button>
             </div>
@@ -395,7 +688,9 @@
               <th scope="col">Nombre</th>
               <th scope="col">Área</th>
               <th scope="col">Máquina</th>
-              <th scope="col">Código</th>
+
+              <th scope="col" class="text-center" style="background-color: rgb(253, 251, 251);">
+                <i class="fas fa-cogs" style="color: blue;"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -403,7 +698,13 @@
               <td>{{item.nombre}}</td>
               <td>{{item.area}}</td>
               <td>{{item.maquina}}</td>
-              <td>{{item.codigo}}</td>
+
+              <td class="text-center" style="background-color: rgb(253, 251, 251);">
+
+                <button type="button" (click)="deleteDispositivos(item.idDispositivo)" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <i class="fas fa-trash"></i>
+                 </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -411,6 +712,44 @@
       <!-- 5 Apartado para agregar y ver dispositivos-->
     </div>
   </div>
+
+  <ng-template class="wrapper bg-white" #template>
+
+    <div class="modal-header">
+      <h5>Cambiar Estatus</h5>
+      <button
+        type="button"
+        class=" btn-close"
+
+        (click)="bsModalRef.hide()">
+
+      </button>
+    </div>
+    <br>
+    <form class="rounded mb-0 m-4 p-4 needs-validation novalidate" >
+
+        <h6><i class="fas fa-info-circle"></i>Cambiar estatus para la máquina</h6>
+        <div class="input-group input-group-sm mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-sm"><i class ="fas fa-clipboard"></i> </span>
+          <input type="text" [(ngModel)]="serviceModelMaquina.statusMaquina">
+          <select class="form-select" id="autoSizingSelect" name="statusMaquina" id="txtstatusMaquina"
+
+          [(ngModel)]="serviceModelMaquina.statusMaquina" required>
+          <option selected value=""disabled>Seleccione Un Estatus...</option>
+          <option selected value="Activa" style="background-color: rgb(164, 245, 164);">Activa</option>
+          <option selected value="Inactiva" style="background-color: rgb(245, 164, 164);">Inactiva</option>
+          <option selected value="Detenida" style="background-color: rgb(245, 210, 164);">Detenida</option>
+          <option selected value="En reparación" style="background-color: rgb(245, 237, 164);">En reparación</option>
+        </select>
+
+        </div>
+
+
+    </form>
+      <button class="btn btn-primary"  (click)="onUpdateMaquina(serviceModelMaquina);">Confirmar</button>
+    <br>
+
+    </ng-template>
 
 </body>
 </html>

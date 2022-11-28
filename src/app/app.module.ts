@@ -25,6 +25,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginSupervisorComponent } from './components/login-supervisor/login-supervisor.component';
+import { LoginSolicitudesComponent } from './components/login-solicitudes/login-solicitudes.component';
+import { HistorialMecanicosComponent } from './components/historial-mecanicos/historial-mecanicos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,9 @@ import { LoginSupervisorComponent } from './components/login-supervisor/login-su
     FilterRangePipe,
     AscDescPipe,
     LoginSupervisorComponent,
-   
+    LoginSolicitudesComponent,
+    HistorialMecanicosComponent
+  
   ],
   imports: [
     BrowserModule,

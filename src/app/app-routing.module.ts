@@ -14,6 +14,9 @@ import { AdminLogGuard } from './guards/admin-log.guard';
 import { SupervisaAreasComponent } from './components/supervisa-areas/supervisa-areas.component';
 import { LoginSupervisorComponent } from './components/login-supervisor/login-supervisor.component';
 import { SupervisorLogGuard } from './guards/supervisor-log.guard';
+import { SolicitdsLogGuard } from './guards/solicitds-log.guard';
+import { LoginSolicitudesComponent } from './components/login-solicitudes/login-solicitudes.component';
+import { HistorialMecanicosComponent } from './components/historial-mecanicos/historial-mecanicos.component';
 
 const routes: Routes = [
   {
@@ -21,7 +24,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'Resumen_Solicitudes', component: TomesComponentComponent
+    path: 'Resumen_Solicitudes', component: TomesComponentComponent,canActivate:[SolicitdsLogGuard]
   },
   {
     path:'view/:id',component:ViewAceptComponent
@@ -49,10 +52,16 @@ const routes: Routes = [
     path:'supervisor',component:AdminComponent,canActivate:[AdminLogGuard]
   },
   {
-    path:'supervisorA',component:SupervisaAreasComponent,canActivate:[SupervisorLogGuard]
+    path:'supervisorA/:id',component:SupervisaAreasComponent,canActivate:[SupervisorLogGuard]
   },
   {
     path:'login2',component:LoginSupervisorComponent
+  },
+  {
+    path:'login3',component:LoginSolicitudesComponent
+  },
+  {
+    path:'Historial/:id',component:HistorialMecanicosComponent
   }
 ];
 

@@ -32,7 +32,7 @@
               <label class="visually-hidden" for="autoSizingInputGroup"></label>
               <div class="input-group">
                 <div class="input-group-text" style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"><i class="fas fa-signature"></i></div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" placeholder="Nombre del solicitante" name="nombreSolicitante" id="txtnombes" [(ngModel)]="serviceModel.nombreSolicitante" style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"  required>
+                <input type="text" class="form-control form-control-sm"  id="autoSizingInputGroup" placeholder="Nombre del solicitante" name="nombreSolicitante" id="txtnombes"  [(ngModel)]="serviceModel.nombreSolicitante" style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
 
               </div>
             </div>
@@ -58,9 +58,9 @@
           <span class="input-group-text" id="inputGroup-sizing-sm"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"><i class="fas fa-cogs"></i></span>
 
     <select  class="form-select" name="maquina" id="txtMaquina"  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-    [(ngModel)]="searchTextDisp" [(ngModel)]="serviceModel.maquina" required (click)="GetMaquinaArea()">
+    [(ngModel)]="searchTextDisp" [(ngModel)]="serviceModel.maquina" required >
       <option selected value='' disabled>Seleccionar la Máquina....</option>
-      <option *ngFor="let item of maqunasAreas|filter:searchText" value="{{item.nombre}}">{{item.nombre}} - {{item.codigo}}</option>
+      <option *ngFor="let item of maqunasAreas|filter:searchText" value="{{item.nombre}}">{{item.nombre}}</option>
           </select>
         </div>
       </div>
@@ -72,7 +72,7 @@
                 <select  style="box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" class="form-select " name="dispositivo" id="txtDispo" placeholder="Dispositivo"
 [(ngModel)]="serviceModel.dispositivo" required
 >
-<option selected value='' disabled>Seleccionar la Máquina....</option>
+<option selected value='' disabled>Seleccionar la Dispositivo....</option>
       <option *ngFor="let item of dispositivos|filter:searchTextDisp" value="{{item.nombre}}">{{item.nombre}}</option>
 </select>
               </div>

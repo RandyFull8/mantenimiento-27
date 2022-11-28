@@ -7,10 +7,17 @@
   <title>Document</title>
  </head>
  <body>
+  <div class="overlay" *ngIf="!load">
+    <div class="spinner ">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
  <!--nav-->
   <nav class=" navbar nav1" >
 
-    <a class="navbar-brand" href="#" ><img src="assets/img/logo_bioflex-01.png" style="height: 40px;" alt=""></a>
+    <a class="navbar-brand" href="#"  ><img  src="assets/img/logo_bioflex-01.png" style="height: 40px;" alt=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,6 +45,7 @@
             <button class="btn btn-outline-primary" type="submit" id="button-addon2" (click)="getInputValue(identificador.value)"  >Ir <i class="fas fa-chevron-right"></i></button>
           </div>
           <hr>
+          
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingThree">
@@ -67,9 +75,10 @@
           </div>
 
         </div>
+
         <hr>
-          <li class="nav-item">
-            <a class="nav-link" style="cursor: pointer" href="#" ><img src="assets/img/logout.png"  style=" height: 25px;">Volver al Inicio</a>
+          <li class="nav-item" (click)="OnClickExit()">
+            <a (click)="OnClickExit()" class="nav-link" style="cursor: pointer"  ><img src="assets/img/logout.png"  style=" height: 25px;">Volver al Inicio</a>
           </li>
         </ul>
 
@@ -88,11 +97,25 @@
   <div class="col-md-2">
     <div class="input-group input-group-sm mb-3">
     <div class="search-name">
-      <select class="form-select"   name="search" [(ngModel)]="searchText">
-        <option value="" selected>Todas las Tareas</option>
-        <option *ngFor="let item of maqunasAreas" value="{{item.nombre}}">{{item.nombre}}</option>
 
-      </select>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Por área</label>
+        <select class="form-select" id="inputGroupSelect01" [(ngModel)]="searchText">
+          <option value="" selected>Todas las Tareas</option>
+          <option *ngFor="let item of maqunasAreas" value="{{item.nombre}}">{{item.nombre}}</option>
+  
+        </select>
+      </div>
+    
+          
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Por fecha</span>
+            <input type="date" [(ngModel)]="searchDate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+       
+       
+   
     </div></div>
  </div>
 
@@ -114,49 +137,50 @@
      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
 
-
-      <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-     <!--tarjetas-->
-      <div class="page-wrapper" >
-      <!-- ******Header****** -->
-
-      <ol class="breadcrumb col-md-6" >
-        <li class="breadcrumb-item active" aria-current="page" ><i class="fas fa-angle-double-left" ></i>Lista General<i class="fas fa-angle-double-right"></i></li>
-      </ol>
-     <section class="cards-section text-center "  *ngFor="let item of datatable|filter:searchText">
-
-      <div class="container ">
-       <div class="card text-center border-dark text-bg-light ">
-      <div class="card-header ">
-        {{item.maquina}}/{{item.dispositivo}}
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Problema</th>
+              <th scope="col">Área</th>
+              <th scope="col">Máquina</th>
+              <th scope="col">Dispositivo</th>
+              <th scope="col">Fecha Solicitud</th>
+              <th scope="col">Hora Solicitud</th>
+              <th scope="col">Tomada por..</th>
+              <th scope="col">Reasignada a..</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of datatable| filter:searchText|filter:searchDate">
+              <th scope="row">{{item.idSolicitud}}</th>
+              <td>{{item.descripcionProblema}}</td>
+              <td>{{item.area}}</td>
+              <td>{{item.maquina}}</td>
+              <td>{{item.dispositivo}}</td>
+              <td>{{item.fechaSolicitud}}</td>
+              <td>{{item.horaSolicitud}}</td>
+              <td>{{item.nombre}}</td>
+              <td>{{item.nombre2}}</td>
+              
+              <div *ngIf="item.nombre !=='Pendiente por asignar'; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock>
+                <td><button class="btn btn-secondary"  style="color: rgb(170, 168, 168);" (click)="onclickTomadas()">Aceptada</button>
+                </td>
+              
+               </ng-template>
+              <ng-template #elseBlock>
+                <td><a class="btn btn-warning" routerLink="/view/{{item.idSolicitud}}">Revisar/Aceptar</a></td>
+               
+             </ng-template>
+              
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="card-body">
-        <h5 class="card-title">{{item.area}}</h5>
-
-        <p class="card-text">Tomada Por: {{item.nombre}}</p>
-        <h6 class="card-title">Solicitado Por: {{item.nombreSolicitante}}</h6>
-        <p class="card-text">{{item.descripcionProblema}}</p>
-
-        <div *ngIf="item.nombre!=='Pendiente por asignar'; then thenBlock else elseBlock"></div>
-     <ng-template #thenBlock>
-     <button class="btn btn-secondary"  style="color: rgb(170, 168, 168);" (click)="onclickTomadas()">Revisar/Aceptar</button>
-
-      </ng-template>
-     <ng-template #elseBlock>
-      <a class="btn btn-warning" routerLink="/view/{{item.idSolicitud}}">Revisar/Aceptar</a></ng-template>
-
-
-
-      </div>
-      <div class="card-footer text-muted">
-        No: {{item.idSolicitud}} - {{item.fechaSolicitud}}
-      </div>
-       </div>
-      <br>
-      </div><!--//container-->
-      </section><!--//cards-section-->
-      </div></div></div>
+     
 
       </div>
 

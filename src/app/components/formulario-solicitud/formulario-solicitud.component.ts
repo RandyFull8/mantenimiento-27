@@ -7,6 +7,7 @@ import { ServiceModelDispositivo } from 'src/app/models/serviceModelDispositivo'
 import { DBConectionService } from 'src/app/services/dbconection.service';
 import { CargarScriptsService } from '../../services/cargar-scripts.service';
 import Swal from 'sweetalert2'
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-formulario-solicitud',
   templateUrl: './formulario-solicitud.component.html',
@@ -26,7 +27,7 @@ export class FormularioSolicitudComponent implements OnInit {
   areas: any = []
   dispositivos: any=[]
 
-  constructor(  public route: ActivatedRoute,private router: Router,private dBConectionService: DBConectionService,_CargarScriptsService:CargarScriptsService) { _CargarScriptsService.carga(['time']), _CargarScriptsService.carga(['NabBarFunctions'])}
+  constructor(private toastr: ToastrService,public route: ActivatedRoute,private router: Router,private dBConectionService: DBConectionService,_CargarScriptsService:CargarScriptsService) { _CargarScriptsService.carga(['time']), _CargarScriptsService.carga(['NabBarFunctions'])}
 
   ngOnInit(): void {
     this.serviceModel.maquina = '';
@@ -38,12 +39,14 @@ export class FormularioSolicitudComponent implements OnInit {
     this.onDataTable4();
   }
 
- 
+  
+
   onDataTable3(){
     this.dBConectionService.getSolicitudArea().subscribe(res=>{
   this.areas=res;
     });
   }
+  
   onDataTable4(){
     this.dBConectionService.getSolicitudDispositivo().subscribe(res=>{
   this.dispositivos=res;
@@ -55,10 +58,10 @@ export class FormularioSolicitudComponent implements OnInit {
 
     });
   }
-  
+
 
   onAddSolicitud(serviceModel: ServiceModel): void {
-   
+
       this.dBConectionService.addSolicitud(serviceModel).subscribe((res) => {
         if (res) {
 console.log(res)
@@ -73,10 +76,11 @@ console.log(res)
             confirmButtonText: 'Ok,volver'
           }).then((result) => {
             if (result.isConfirmed) {
-             
+
               window.location.reload()
 
             }
+          
           })
 
 

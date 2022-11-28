@@ -34,39 +34,112 @@ export class SupervisaAreasComponent implements OnInit {
   searchTextTimT: any;
   searchTextTSani: any;
   searchTextStat: any;
-
   serviceModel: ServiceModel = new ServiceModel()
   serviceModelArea: ServiceModelArea = new ServiceModelArea()
   serviceModelMaquina: ServiceModelMaquina = new ServiceModelMaquina()
   serviceModelMecanico: ServiceModelMecanico = new ServiceModelMecanico()
-
+  nominaimp:string=''
   maqunasAreas: any = []
   areas: any = []
-
+  public load: boolean;
   datatable: any = []
-  datatable2: any = []
-  datatable3: any = []
-  datatable4: any = []
+  datatableTT: any = []
+  datatableCerradas: any = []
   datatableUsuarios: any = []
   public page:number=0
+  public page2:number=0
+  public page3:number=0
   public search:string='';
-  constructor(private authService: OuthService,private toastr: ToastrService,private modalService: BsModalService,public route: ActivatedRoute,private router: Router,private dBConectionService: DBConectionService) { }
+  constructor(private authService: OuthService,private toastr: ToastrService,private modalService: BsModalService,public route: ActivatedRoute,private router: Router,private dBConectionService: DBConectionService) {
+    this.load = false;
+  }
 
   ngOnInit(): void {
-    this.sinFiltros();
-    this.onDataTable();
-    this.onDataTable2();
-    this.onDataTable3();
-    this.onDataTable4();
-    this.onDataTable5();
-    this.onDataTable6();
-    this.onDataTableUsuarios()
-  }
-  onDataTable(){
-    this.dBConectionService.getSolicitud().subscribe(res=>{
-  this.datatable=res;
+    setTimeout(() => {
+      this.load = true;
+    }, 1600);
+    
+    this.serviceModel.estatusActividad='';
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
 
-    });
+        if (id) {
+          this.dBConectionService.getSolicitudSuperArea(id)
+          
+            .subscribe({
+              next: response => {
+                this.datatable = response;
+              
+this.nominaimp=id
+
+              }
+            });
+        }
+      }
+
+
+    })
+  this.onDataTableUsuarios()
+  this.OndatatableTemporal()
+  this.OndatatableCerradas()
+  }
+  Ondatatable(){
+    
+    this.serviceModel.estatusActividad='';
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
+
+        if (id) {
+          this.dBConectionService.getSolicitudSuperArea(id)
+          
+            .subscribe({
+              next: response => {
+                this.datatable = response;
+              
+this.nominaimp=id
+
+              }
+            });
+        }
+      }
+
+
+    })
+  }
+
+  OndatatableTemporal(){
+    
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
+
+        if (id) {
+          this.dBConectionService.getSolicitudSuperAreaTT(id)
+          
+            .subscribe({
+              next: response => {
+                this.datatableTT = response;
+              
+this.nominaimp=id
+
+              }
+            });
+        }
+      }
+
+
+    })
+  }
+
+  OndatatableCerradas(){
+    
+    this.dBConectionService.getSolicituCerradas().subscribe(res=>{
+      this.datatableCerradas=res;
+    
+        });
+      
   }
   sinFiltros(){
     this.searchTextStat=''
@@ -81,37 +154,9 @@ export class SupervisaAreasComponent implements OnInit {
     this.searchTextNomT=''
     this.searchTextNomMec=''
   }
-  onDataTable2(){
-    this.dBConectionService.getSolicitudArea().subscribe(res=>{
-  this.datatable2=res;
 
-    });
-  }
-  onDataTable3(){
-    this.dBConectionService.getSolicitudMaquina().subscribe(res=>{
-  this.datatable3=res;
-    });
-  }
-  onDataTable5(){
-    
-    this.dBConectionService.getSolicitudArea().subscribe(res=>{
-  this.areas=res;
-  
-    });
-  }
-  onDataTable6(){
-    
-    this.dBConectionService.getSolicitudMaquina().subscribe(res=>{
-  this.maqunasAreas=res;
-    });
-  }
  
-  onDataTable4(){
-    this.dBConectionService.getSolicitudMecanico().subscribe(res=>{
-  this.datatable4=res;
-    });
-  }
-  
+
   onDataTableUsuarios(){
     this.dBConectionService.getUsuarios().subscribe(res=>{
   this.datatableUsuarios=res;
@@ -119,26 +164,6 @@ export class SupervisaAreasComponent implements OnInit {
     });
   }
 
-//   onSearch() {
-//   usuarios  fechasFiltradas = this.myDates
-//            .filter((date: Date) => pickerDate.getTime() < date.getTime() < pickerDate2.getTime());
-//  }
-
-saveSomeThing() {
- 
- let nameInput=(document.getElementById('txtNamed') as HTMLInputElement).value
-  let name = nameInput+'.xlsx';
-  let element = document.getElementById('season-tble');
-  const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-  const book: XLSX.WorkBook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-  XLSX.writeFile(book, name);
-
-  (document.getElementById('txtNamed') as HTMLInputElement).value=''
-  
-} 
 
 openModal(template: TemplateRef<any>) {
   this.bsModalRef = this.modalService.show(template)
@@ -146,42 +171,42 @@ openModal(template: TemplateRef<any>) {
 
 saveSomeThings() {
   this.bsModalRef.hide()
-} 
+}
 onSetData(select: any) {
-  this.serviceModel.idSolicitud =select.idSolicitud 
-  this.serviceModel.nombreSolicitante =select.nombreSolicitante 
-  this.serviceModel.correo =select.correo 
+  this.serviceModel.idSolicitud =select.idSolicitud
+  this.serviceModel.nombreSolicitante =select.nombreSolicitante
+  this.serviceModel.correo =select.correo
   this.serviceModel.fechaSolicitud=select.fechaSolicitud
-  this.serviceModel.horaSolicitud =select.horaSolicitud 
-  this.serviceModel.area =select.area 
-  this.serviceModel.maquina =select.maquina 
+  this.serviceModel.horaSolicitud =select.horaSolicitud
+  this.serviceModel.area =select.area
+  this.serviceModel.maquina =select.maquina
   this.serviceModel.dispositivo=select.dispositivo
-  this.serviceModel.descripcionProblema =select.descripcionProblema 
-  this.serviceModel.nomina =select.nomina 
-  this.serviceModel.nombre =select.nombre 
+  this.serviceModel.descripcionProblema =select.descripcionProblema
+  this.serviceModel.nomina =select.nomina
+  this.serviceModel.nombre =select.nombre
   this.serviceModel.fechaInicio=select.fechaInicio
-  this.serviceModel.horaInicio =select.horaInicio 
+  this.serviceModel.horaInicio =select.horaInicio
   this.serviceModel.diagnostico=select.diagnostico
   this.serviceModel.tipoFalla=select.tipoFalla
   this.serviceModel.emailSent =select.emailSent
-  this.serviceModel.nombre2=select.nombre2 
+  this.serviceModel.nombre2=select.nombre2
   this.serviceModel.nomina2=select.nomina2
-  this.serviceModel.asignacion=select.asignacion 
-  this.serviceModel.generoParo =select.generoParo 
+  this.serviceModel.asignacion=select.asignacion
+  this.serviceModel.generoParo =select.generoParo
   this.serviceModel.paroCorrectivo=select.paroCorrectivo
-  this.serviceModel.paroOperativo =select.paroOperativo 
-  this.serviceModel.paroRefaccion =select.paroRefaccion 
-  this.serviceModel.tiempoTotal =select.tiempoTotal 
+  this.serviceModel.paroOperativo =select.paroOperativo
+  this.serviceModel.paroRefaccion =select.paroRefaccion
+  this.serviceModel.tiempoTotal =select.tiempoTotal
   this.serviceModel.grasaUtilizada=select.grasaUtilizada
-  this.serviceModel.refaMateHerra =select.refaMateHerra 
-  this.serviceModel.fechaFinal =select.fechaFinal 
-  this.serviceModel.horaFinal =select.horaFinal 
+  this.serviceModel.refaMateHerra =select.refaMateHerra
+  this.serviceModel.fechaFinal =select.fechaFinal
+  this.serviceModel.horaFinal =select.horaFinal
   this.serviceModel.trabajoSanitizado=select.trabajoSanitizado
-  this.serviceModel.estatusActividad =select.estatusActividad 
-  this.serviceModel.firmaSolicitante =select.firmaSolicitante 
+  this.serviceModel.estatusActividad =select.estatusActividad
+  this.serviceModel.firmaSolicitante =select.firmaSolicitante
   this.serviceModel.emailSent2='true2'
   }
-  
+
   onUpdateSalida(serviceModel: ServiceModel): void {
     let valor='i'
     let valor2
@@ -190,7 +215,7 @@ onSetData(select: any) {
       if( (document.getElementById('txtfirma') as HTMLInputElement).value === valor2){
       valor='existe'
       }
-          
+
     }
     if(valor==='existe'){
       //  serviceModel.nomina2= parseInt((document.getElementById('txtNomina2') as HTMLInputElement).value)
@@ -207,28 +232,23 @@ onSetData(select: any) {
           confirmButtonText: 'Ok,volver'
         }).then((result) => {
           if (result.isConfirmed) {
-           
-            this.onDataTable();
-            this.onDataTable2();
-            this.onDataTable3();
-            this.onDataTable4();
-            this.onDataTable5();
-            this.onDataTable6();
+
+           this.Ondatatable()
           }
         })
-      
+
       } else {
         alert('Error! :(')
       }
     })
-  
-     
+
+
     }else{
       this.toastr.error('Número de nomina no encontrado!');
- 
-   
+
+
     }
-   
+
   }
 nextPage(){
 this.page+=5;
@@ -236,9 +256,24 @@ this.page+=5;
 previousPage(){
   if(this.page>0)
   this.page-=5;
-  
+
 }
 OnClickExit(){
-  this.authService.logoutAdmin()
+  Swal.fire({
+    title: 'Cerrar Sesión',
+    showDenyButton: true,
+    confirmButtonText: 'Aceptar',
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      this.authService.logoutAdmin()
+      this.router.navigateByUrl("#");
+      this.toastr.info('Se ha cerrado la sesión :)✅')
+    } else if (result.isDenied) {
+      this.toastr.info('Se cancelo cerrar sesión.❌')
+    }
+  })
+
 }
 }

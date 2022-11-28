@@ -8,10 +8,17 @@ import { CargarScriptsService } from '../../services/cargar-scripts.service';
 })
 export class InicioComponent implements OnInit {
   datatable: any = []
+  public load: boolean;
   constructor(_CargarScriptsService:CargarScriptsService) {
+    this.load = false;
    }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.load = true;
+    }, 1600);
+
+
   }
 
 }

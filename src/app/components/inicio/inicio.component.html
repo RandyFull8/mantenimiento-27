@@ -9,8 +9,24 @@
 <body >
     <app-navbar></app-navbar>
 <br>
+<div class="overlay" *ngIf="!load">
 
-<div class="page-wrapper stilo">
+  <div class="spinner ">
+      <img style="width:150px;height:150px;" src="/assets/spins/spinInit.gif"/>
+    </div>
+
+  </div>
+
+
+
+  <div *ngIf="load">
+
+
+  Datos cargados correctamente
+
+  </div>
+
+<div  >
     <!-- ******Header****** -->
     <section class="cards-section text-center ">
         <div class="container stilo">
@@ -68,7 +84,7 @@
                         </div><!--//icon-holder-->
                         <h3 class="title">Supervisor/área</h3>
                         <p class="intro">Firmar solicitudes terminadas</p>
-                        <a class="link" routerLink="/supervisorA"><span></span></a>
+                        <a class="link" routerLink="/login2"><span></span></a>
                     </div><!--//item-inner-->
                 </div><!--//item-->
 

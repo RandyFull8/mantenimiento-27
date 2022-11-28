@@ -40,13 +40,13 @@ export class ServiceModel {
 
     generoParo :String=''
 
-    paroCorrectivo:number=0
+    paroCorrectivo:string=''
 
-    paroOperativo :number=0
+    paroOperativo :string=''
 
-    paroRefaccion :number=0
+    paroRefaccion :string=''
 
-    tiempoTotal :String=''
+    tiempoTotal :string=''
 
     grasaUtilizada:String=''
 
@@ -71,5 +71,7 @@ export class ServiceModel {
     fechaFirma:String=''
 
     horaFirma:String=''
+
+    comentariosSolicitante:String=''//nuevo
 
 }

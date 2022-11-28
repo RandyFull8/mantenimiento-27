@@ -19,7 +19,8 @@ nav{
 
   .nav2{
     background-color: white;
-    border: none;
+    border: 1;
+    margin-top: 66px;
     -webkit-box-shadow: 0 8px 6px -6px rgb(255, 255, 255);
     -moz-box-shadow: 0 8px 6px -6px rgb(255, 255, 255);
          box-shadow: 0 8px 6px -6px rgb(255, 255, 255);

@@ -11,6 +11,7 @@ import {
   FormControl,
   ValidatorFn
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sesion',
   templateUrl: './sesion.component.html',
@@ -19,10 +20,13 @@ import {
 export class SesionComponent implements OnInit {
   bsModalRef: BsModalRef = new BsModalRef()
   datatable: any = []
+  datatableCierre: any = []
+  datatableCierreTemp: any = []
 
   serviceModel: ServiceModel = new ServiceModel()
 totalparo:number=0;
 nominaimp:string=''
+
 /**checks */
 form: FormGroup;
 ordersData = [
@@ -51,8 +55,8 @@ get toolsFormArray() {
   return this.formtools.controls['tools'] as FormArray;
 }
 //heramientas
-  constructor(private formBuilder: FormBuilder, public route: ActivatedRoute, private router: Router, private dBConectionService: DBConectionService, private modalService: BsModalService) {
-    
+  constructor(private toastr: ToastrService,private formBuilder: FormBuilder, public route: ActivatedRoute, private router: Router, private dBConectionService: DBConectionService, private modalService: BsModalService) {
+
     this.form = this.formBuilder.group({
       orders: new FormArray([])
     });
@@ -76,23 +80,104 @@ submit() {
 }
  /**submits */
   ngOnInit(): void {
- 
+    this.serviceModel.estatusActividad='';
     this.route.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id')
 
         if (id) {
           this.dBConectionService.getSolicitudSM(id)
+          
             .subscribe({
               next: response => {
                 this.datatable = response;
+              
 this.nominaimp=id
-this.onDataTable();
+
               }
             });
         }
       }
+
+
     })
+this.cargarCerradas()
+this. cargarCerradasTTemp()
+   
+  }
+
+  cargarEnProceso(){
+
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
+
+        if (id) {
+          this.dBConectionService.getSolicitudSM(id)
+          
+            .subscribe({
+              next: response => {
+                this.datatable = response;
+              
+
+
+              }
+            });
+        }
+      }
+
+
+    })
+    
+  }
+  cargarCerradas(){
+
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
+
+        if (id) {
+          this.dBConectionService.getSolicitudSMCierre(id)
+          
+            .subscribe({
+              next: response => {
+                this.datatableCierre = response;
+              
+
+
+              }
+            });
+        }
+      }
+
+
+    })
+    
+  }
+
+  cargarCerradasTTemp(){
+
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id')
+
+        if (id) {
+          this.dBConectionService.getSolicitudSMCierreTemp(id)
+          
+            .subscribe({
+              next: res => {
+                this.datatableCierreTemp = res;
+              
+
+
+              }
+            });
+        }
+      }
+
+
+    })
+    
   }
   onSetData(select: any) {
 
@@ -146,13 +231,7 @@ this.onDataTable();
     this.bsModalRef.hide()
   }
 
-  onDataTable() {
-    this.dBConectionService.getSolicitud().subscribe(res => {
-      this.datatable = res;
 
-    });
-  }
- 
 
 
 onUpdateRevision(serviceModel: ServiceModel): void {
@@ -160,27 +239,27 @@ onUpdateRevision(serviceModel: ServiceModel): void {
     serviceModel.emailSent2='true'
 
     if ((document.getElementById('flexRadioDefault1') as HTMLInputElement).checked === true) {
-      serviceModel.trabajoSanitizado = 'Si' } 
+      serviceModel.trabajoSanitizado = 'Si' }
       else{
         if ((document.getElementById('flexRadioDefault2') as HTMLInputElement).checked === true) {
-          serviceModel.trabajoSanitizado = 'No' } 
+          serviceModel.trabajoSanitizado = 'No' }
       }
-      serviceModel.estatusActividad = (document.getElementById('first-select') as HTMLInputElement).value
+      
     this.dBConectionService.addRevision(serviceModel.idSolicitud, serviceModel)
   .subscribe((res) => {
     if (res) {
       Swal.fire({
-        title: 'Operación realizada con éxito',
-        text: "¡¡Presione el botón para confirmar!!",
-        icon: 'success',
-        showCancelButton: false,
-        confirmButtonColor: 'rgb(255, 194, 28)',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ok,volver'
+        title: '¿Desea continuar?',
+          text: "Es posible que el estatus de la máquina cambie ",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Continuar!'
       }).then((result) => {
         if (result.isConfirmed) {
-        
-          this.onDataTable();
+
+         window.location.reload();
         }
       })
     } else {
@@ -193,13 +272,13 @@ onUpdateRevision(serviceModel: ServiceModel): void {
 }
 
 public getInputValue(inputValue:string){
-    
+
   this.router.navigate(['/Sesion_mecanico/'+inputValue])
   .then(() => {
     window.location.reload();
   });
 
-  
+
 
 }
 logOut(){
@@ -216,20 +295,20 @@ logOut(){
     .subscribe((res) => {
       if (res) {
         Swal.fire({
-          title: 'Operación realizada con éxito',
-          text: "¡¡Presione el botón para confirmar!!",
-          icon: 'success',
-          showCancelButton: false,
-          confirmButtonColor: 'rgb(255, 194, 28)',
+          title: '¿Desea continuar?',
+          text: "Es posible que el estatus de la máquina cambie ",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Ok,volver'
+          confirmButtonText: 'Continuar!'
         }).then((result) => {
           if (result.isConfirmed) {
-           
-            this.onDataTable();
+
+         window.location.reload();
           }
         })
-        
+
       } else {
         alert('Error! :(')
       }
@@ -237,13 +316,16 @@ logOut(){
 }
 
 onUpdateSalida3(serviceModel: ServiceModel): void {
-  if ((document.getElementById('flexRadioDefault1') as HTMLInputElement).checked === true) {
+  if ((document.getElementById('flexRadioDefault12') as HTMLInputElement).checked === true) {
     serviceModel.generoParo = 'Si' }
     else{
-      if ((document.getElementById('flexRadioDefault2') as HTMLInputElement).checked === true) {
+      if ((document.getElementById('flexRadioDefault22') as HTMLInputElement).checked === true) {
         serviceModel.generoParo = 'No' }
     }
-  let total:Number=serviceModel.paroCorrectivo+serviceModel.paroOperativo+serviceModel.paroRefaccion
+    let pC:number=parseInt(serviceModel.paroCorrectivo);
+    let pO:number=parseInt(serviceModel.paroOperativo);
+    let pR:number=parseInt(serviceModel.paroRefaccion);
+  let total:Number= pC + pO + pR;
   this.serviceModel.tiempoTotal=total.toString()
   console.log(this.serviceModel.tareasEjecutadas)
   this.serviceModel.emailSent='true'
@@ -251,20 +333,13 @@ onUpdateSalida3(serviceModel: ServiceModel): void {
   this.dBConectionService.addTareas(serviceModel.idSolicitud, serviceModel)
     .subscribe((res) => {
       if (res) {
-        Swal.fire({
-          title: 'Operación realizada con éxito',
-          text: "¡¡Presione el botón para confirmar!!",
-          icon: 'info',
-          showCancelButton: false,
-          confirmButtonColor: 'rgb(255, 194, 28)',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Ok,volver'
-        }).then((result) => {
-          if (result.isConfirmed) {
-           
-            this.onDataTable();
-          }
-        })
+        this.toastr.info('Se guardaron los cambios');
+     
+      
+        this.cargarEnProceso()
+    this.cargarCerradas()
+this.cargarCerradasTTemp()
+
       } else {
         alert('Error! :(')
       }
@@ -279,21 +354,12 @@ onUpdateSalida4(serviceModel: ServiceModel): void {
 
 this.dBConectionService.addTareas(serviceModel.idSolicitud, serviceModel)
   .subscribe((res) => {
-    if (res) {
-      Swal.fire({
-        title: 'Operación realizada con éxito',
-        text: "¡¡Presione el botón para confirmar!!",
-        icon: 'info',
-        showCancelButton: false,
-        confirmButtonColor: 'rgb(255, 194, 28)',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ok,volver'
-      }).then((result) => {
-        if (result.isConfirmed) {
-        
-          this.onDataTable();
-        }
-      })
+    if (res) {     this.toastr.info('Se guardaron los cambios');
+     
+      
+    this.cargarEnProceso()
+this.cargarCerradas()
+this.cargarCerradasTTemp()
     } else {
       alert('Error! :(')
     }

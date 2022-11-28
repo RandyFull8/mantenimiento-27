@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class OuthService {
 
   constructor() { }
-  
+
   readonly ISLOGGEDKEY = 'islogged';
   public urlUsuarioIntentaAcceder = '';
 
@@ -35,23 +35,24 @@ export class OuthService {
     }
     return true;
   }
+
   readonly ISLOGGEDKEYcom = 'isloggedAdmin';
   public urlUsuarioIntentaAccederAdmin = '';
-  
+
   public changeLoginStatusSubjectAdmin = new Subject<boolean>();
   public changeLoginStatusAdmin$ = this.changeLoginStatusSubjectAdmin.asObservable();
-  
-  
+
+
     loginAdmin() {
       localStorage.setItem(this.ISLOGGEDKEYcom, 'true');
       this.changeLoginStatusSubjectAdmin.next(true);
     }
-  
+
     logoutAdmin() {
       localStorage.removeItem(this.ISLOGGEDKEYcom);
       this.changeLoginStatusSubjectAdmin.next(false);
     }
-  
+
     isLoggedAdmin(url: string) {
       const isloggedcom = localStorage.getItem(this.ISLOGGEDKEYcom);
       if (!isloggedcom) {
@@ -60,5 +61,33 @@ export class OuthService {
       }
       return true;
     }
-  
+
+
+
+  readonly ISLOGGEDKEYsoli = 'isloggedSoli';
+  public urlUsuarioIntentaAccederSoli = '';
+
+  public changeLoginStatusSubjectSoli = new Subject<boolean>();
+  public changeLoginStatusSoli$ = this.changeLoginStatusSubjectSoli.asObservable();
+
+
+    loginSoli() {
+      localStorage.setItem(this.ISLOGGEDKEYsoli, 'true');
+      this.changeLoginStatusSubjectSoli.next(true);
+    }
+
+    logoutSoli() {
+      localStorage.removeItem(this.ISLOGGEDKEYsoli);
+      this.changeLoginStatusSubjectSoli.next(false);
+    }
+
+    isLoggedSoli(url: string) {
+      const isloggedcom = localStorage.getItem(this.ISLOGGEDKEYsoli);
+      if (!isloggedcom) {
+        this.urlUsuarioIntentaAccederSoli = url;
+        return false;
+      }
+      return true;
+    }
+
 }
